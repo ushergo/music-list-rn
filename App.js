@@ -1,70 +1,53 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import Axios from 'axios'
-import Card from './src/components/card/index'
+import {StyleSheet,Button,  View} from 'react-native';
+import FlatListView from './src/components/flatlistview'
 
 export default class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            musics: [{pic_s210: './img/1.png', name: '测试测试', comment: 'sdfsfsdsdfsdfdsf'}]
+        this.state ={
+            data : [
+                {id:"1",title:'admin'},
+                {id:"2",title:'bad'},
+                {id:"3",title:'cool'},
+                {id:"4",title:'A'},
+                {id:"5",title:'B'},
+                {id:"6",title:'C'},
+                {id:"7",title:'D'},
+                {id:"8",title:'E'},
+                {id:"9",title:'F'},
+                {id:"10",title:'G'},
+                {id:"11",title:'H'},
+                {id:"11",title:'I'},
+                {id:"11",title:'J'},
+                {id:"11",title:'K'},
+                {id:"11",title:'L'},
+                {id:"11",title:'M'},
+                {id:"11",title:'N'},
+                {id:"11",title:'O'},
+            ]
         }
+
     }
 
-    componentDidMount() {
-        /*
-        https://blog.csdn.net/c__chao/article/details/78573737
-        音乐排行榜接口：
-        https://api.apiopen.top/musicRankings
-        音乐排行榜详情接口：
-        https://api.apiopen.top/musicRankingsDetails?type=1
-        */
-        const REQUEST_URL = "https://api.apiopen.top/musicRankings";
-        Axios.get(REQUEST_URL).then((result) => {
-            console.log(result);
-            this.setState({
-                musics: result.data.result //必须加上data，否则获取不到
-            })
-        })
-    }
-
-    renderLoadingView() {
-        return (
-            <View style={styles.container}>
-                <Text>
-                    正在加载音乐数据……
-                </Text>
-            </View>
-        );
+    _onPressLearnMore= ()=>{
+        alert('hello')
     }
 
     render() {
-        if (!this.state.musics) {
-            return this.renderLoadingView();
-        }
+
         return (
             <View style={styles.container}>
-                <Text style={styles.welcome}>欢迎来到音乐排行榜</Text>
-                <View style={styles.cardList}>
-                    {
-                        this.state.musics && this.state.musics.map((item, index) => {
-                            const uri = item.pic_s210;
-                            const title = item.name;
-                            const desc = item.comment;
-
-                            return (
-                                <Card
-                                    key={index}
-                                    uri={uri}
-                                    title={title}
-                                    desc={desc}
-                                ></Card>
-                            )
-                        })
-                    }
-
+                <View style={styles.flatList}>
+                    <FlatListView  data = {this.state.data}></FlatListView>
                 </View>
 
+                <Button
+                    onPress={this._onPressLearnMore}
+                    title="Learn More"
+                    color="#841584"
+                    accessibilityLabel="Learn more about this purple button"
+                />
             </View>
         );
     }
@@ -72,21 +55,15 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        flex:1,
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
-    cardList: {
-        width: '95%',
-        height: 'auto'
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
+    flatList:{
+        width: 300,
+        height: 300,
+        borderWidth: 2,
+        borderColor:'blue'
+    }
+
 });
