@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet,Button,  View} from 'react-native';
 import FlatListView from './src/components/flatlistview'
+import Banner from "./src/components/banner";
 
 export default class App extends Component {
     constructor(props) {
@@ -41,13 +42,14 @@ export default class App extends Component {
                 <View style={styles.flatList}>
                     <FlatListView  data = {this.state.data}></FlatListView>
                 </View>
-
+                <Banner/>
                 <Button
                     onPress={this._onPressLearnMore}
                     title="Learn More"
                     color="#841584"
                     accessibilityLabel="Learn more about this purple button"
                 />
+
             </View>
         );
     }
